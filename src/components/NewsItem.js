@@ -7,7 +7,9 @@ export class NewsItem extends Component {
     return (
     <div className="my-2">
         <div className="card">
-        <div className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{left: '90%', zIndex: 1}}>{source}</div>
+          <div style={{display: 'flex', justifyContent: 'flex-end', position: 'absolute', right: '0'}}>
+          <span className="badge rounded-pill bg-danger">{source}</span>
+          </div>
           <img src={!imageUrl?"https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/7J4SRBXUHMI6ZLAWR67XDFGNPA.jpg&w=1440":imageUrl} className="card-img-top" style={{height: '230px', width: '414px'}} alt='...'/>
           <div className="card-body">
             <h5 className="card-title">{title!=null ? title : ""}...</h5>

@@ -32,18 +32,18 @@ export class News extends Component {
   }
 
   async updateNews(){
+    this.props.setProgress(10);
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=8bdc3d4c907f4872bb69f8371d15bcd2&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({loading: true});
     let data = await fetch(url);
+    this.props.setProgress(30);
     let parsedData = await data.json();
+    this.props.setProgress(50);
     this.setState({articles: parsedData.articles, totalResults: parsedData.totalResults, loading: false})
+    this.props.setProgress(100);
   }
   async componentDidMount(){
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=8bdc3d4c907f4872bb69f8371d15bcd2&page=1&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true});
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    this.setState({articles: parsedData.articles, totalResults: parsedData.totalResults, loading: false})
+    this.updateNews();
   }
   
   prevPage = async() =>{
@@ -72,7 +72,7 @@ export class News extends Component {
         <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
-          hasMore={this.state.articles.length !== this.state.totalResults}
+          hasMore={this.state.articles.length < this.state.totalResults}
           loader={<Spinner/>}
         >
         <div className="container">
