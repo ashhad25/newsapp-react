@@ -31,6 +31,7 @@ const News = (props) =>{
 
   useEffect(() => {
     updateNews();
+    // eslint-disable-next-line
   }, []);
   
   //these below two functions can be used if you want to refactor previous and next buttons
@@ -42,10 +43,10 @@ const News = (props) =>{
   //   setPage(page + 1);
   //   updateNews();
   // }
-  
+
   const fetchMoreData = async() => {
-    setPage(page + 1);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=8bdc3d4c907f4872bb69f8371d15bcd2&page=${page}&pageSize=${props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=8bdc3d4c907f4872bb69f8371d15bcd2&page=${page+1}&pageSize=${props.pageSize}`;
+    setPage(page+1);
     let data = await fetch(url);
     let parsedData = await data.json();
     setArticles(articles.concat(parsedData.articles));
@@ -54,7 +55,7 @@ const News = (props) =>{
 
     return (
       <>
-        <h1 className="text-center" style={{margin: '35px 0px'}}>{capitalizeFirstLetter(props.category)} - Top Headlines</h1>
+        <h1 className="text-center" style={{margin: '35px 0px', marginTop: '83px'}}>{capitalizeFirstLetter(props.category)} - Top Headlines</h1>
         {loading && <Spinner/>}
         <InfiniteScroll
           dataLength={articles.length}
