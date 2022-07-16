@@ -8,15 +8,16 @@ import {
   Route
 } from "react-router-dom";
 import LoadingBar from 'react-top-loading-bar'
+import SearchNews from './components/SearchNews';
 
-const App = ()=>{
+const App = (props)=>{
   const pageSize = 15;
-  const [progress, setProgress] = useState(0)
-  
-    return (
+  const [progress, setProgress] = useState(0);
+  const [text, setText] = useState('');
+  return (
      <div>
       <BrowserRouter>
-      <Navbar />
+      <Navbar setText={setText} text={text}/>
       <LoadingBar
         height={3}
         color='#f11946'
@@ -30,7 +31,8 @@ const App = ()=>{
           <Route exact path="/science" element={<News setProgress={setProgress} key="science" pageSize={pageSize} country="in" category="science"/>}></Route>
           <Route exact path="/sports" element={<News setProgress={setProgress} key="sports" pageSize={pageSize} country="in" category="sports"/>}></Route>
           <Route exact path="/technology" element={<News setProgress={setProgress} key="technology" pageSize={pageSize} country="in" category="technology"/>}></Route>
-        </Routes>
+          <Route exact path="/search" element={<News setProgress={setProgress} key="search" pageSize={pageSize} country="in" searchResults={text}/>}></Route>
+          </Routes>
       </BrowserRouter>
      </div>
     )

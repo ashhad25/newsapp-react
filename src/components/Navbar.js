@@ -1,8 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = (props) => {
 
+  const handleClick =()=>{
+    let tex = document.getElementById('search').value;
+    props.setText(tex);
+  }
+  
   return (
     <div>
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -32,6 +37,10 @@ const Navbar = () => {
                 <Link className="nav-link" to="/technology">Technology</Link>
               </li>
             </ul>
+            <div className="d-flex">
+              <input className="form-control" type="search" placeholder="Search" aria-label="Search" id='search' onChange={handleClick}/>
+              <Link className="nav-link" to="/search"><button className="btn btn-outline-success" type="submit">Submit</button></Link>
+            </div>
           </div>
         </div>
       </nav>
